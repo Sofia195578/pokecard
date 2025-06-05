@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pokecard</title>
+    <link rel="stylesheet" href="./pokemon.css">
+</head>
+
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <div id="pantalla-inicial">
+        <img src="./pokebola.png" alt="Pokebola" onclick="iniciarApp()" />
+        <h1>Haz clic para descubrir un Pokémon</h1>
+    </div>
+
+        <div class="contenedor-principal" id="contenedorPrincipal">
+
+            <div class="front">
+                <img class="logo" src="./logo.png" alt="Logo" />
+                <img src="" id="pok" alt="Imagen del Pokémon" />
+                <h1 id="namepokemon"></h1>
+                <h2 id="numero"></h2>
+            </div>
+
+            <div class="back">
+                <div class="datos">
+                    <h2>Altura: <span id="altura"></span></h2>
+                    <h2>Peso: <span id="peso"></span></h2>
+                </div>
+                <div class="datos2">
+                    <h2>Tipos:</h2>
+                    <div id="tipo"></div>
+                    <h2>Debilidades:</h2>
+                    <div id="debilidades"></div>
+                </div>
+                <div id="stats-container">
+                    <h2>Estadísticas:</h2>
+                </div>
+            </div>
+        </div>
+        <audio id="pokeAudio" src="./sonido.mp3"></audio>
+
+    <script>
+        const coloresPorTipo = {
+            normal: '#A8A77A', fire: '#EE8130', water: '#6390F0', electric: '#F7D02C', grass: '#7AC74C',
+            ice: '#96D9D6', fighting: '#C22E28', poison: '#A33EA1', ground: '#E2BF65', flying: '#A98FF3',
+            psychic: '#F95587', bug: '#A6B91A', rock: '#B6A136', ghost: '#735797', dragon: '#6F35FC',
+            dark: '#705746', steel: '#B7B7CE', fairy: '#D685AD'
+        };
+
+        function iniciarApp() {
+            document.getElementById("pantalla-inicial").style.display = "none";
+            mostrarTarjeta();
+        }
+
+      
+
+        async function mostrarTarjeta() {
+            const audio = document.getElementById("pokeAudio");
+            audio.currentTime = 0;
+            audio.play();
+
+            let randompokemon = Math.floor(Math.random() * 400) + 1;
+            let res = await axios.get("https://pokeapi.co/api/v2/pokemon/" + randompokemon);
+
+            document.getElementById("namepokemon").textContent = res.data.name;
+            document.getElementById("pok").src = res.data.sprites.other.dream_world.front_default;
+            document.getElementById("altura").textContent = res.data.height / 10 + " m";
+            document.getElementById("peso").textContent = res.data.weight / 10 + " kg";
+            document.getElementById("numero").textContent = "#" + res.data.id;
+
+            const tipoContainer = document.getElementById("tipo");
+            const tipos = res.data.types.map(t => t.type.name);
+            tipoContainer.innerHTML = "";
+            tipos.forEach(tipo => {
+                tipoContainer.innerHTML += `<button class="boton-tipo" style="background-color: ${coloresPorTipo[tipo]};">${tipo}</button>`;
+            });
+
+            const contenedor = document.querySelector(".contenedor-principal");
+            const front = document.querySelector(".front");
+            const back = document.querySelector(".back");
+
+            let colorFondo;
+            if (tipos.length === 2) {
+                colorFondo = `linear-gradient(135deg, ${coloresPorTipo[tipos[0]]}, ${coloresPorTipo[tipos[1]]})`;
+                contenedor.style.background = colorFondo;
+                front.style.background = colorFondo;
+                back.style.background = colorFondo;
+            } else {
+                colorFondo = coloresPorTipo[tipos[0]];
+                contenedor.style.backgroundColor = colorFondo;
+                front.style.backgroundColor = colorFondo;
+                back.style.backgroundColor = colorFondo;
+            }
+
+            let debilidadesSet = new Set();
+            for (let tipo of res.data.types) {
+                let tipoRes = await axios.get(tipo.type.url);
+                let debilidades = tipoRes.data.damage_relations.double_damage_from;
+                debilidades.forEach(d => debilidadesSet.add(d.name));
+            }
+
+            const debilidadesContainer = document.getElementById("debilidades");
+            Array.from(debilidadesSet).forEach(debilidad => {
+                debilidadesContainer.innerHTML += `<button class="boton-debilidad" style="background-color: ${coloresPorTipo[debilidad]};">${debilidad}</button>`;
+            });
+
+            const statsContainer = document.getElementById("stats-container");
+            statsContainer.innerHTML = "<h2>Estadísticas:</h2>";
+            res.data.stats.forEach(stat => {
+                const statName = stat.stat.name;
+                const baseStat = stat.base_stat;
+                const percentage = baseStat > 255 ? 100 : baseStat * 100 / 255;
+                const fillStyle = tipos.length === 2
+                    ? `background: linear-gradient(135deg, ${coloresPorTipo[tipos[0]]}, ${coloresPorTipo[tipos[1]]});`
+                    : `background-color: ${coloresPorTipo[tipos[0]]};`;
+
+                statsContainer.innerHTML += `
+          <div class="stat">
+            <span class="stat-name">${statName.toUpperCase()}:</span>
+            <div class="stat-bar">
+              <div class="stat-fill" style="width: ${percentage}%; ${fillStyle}"></div>
+              <span class="stat-value">${baseStat}/255</span>
+            </div>
+          </div>`;
+            });
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,282 @@
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url(./fondo.png);
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
+      opacity: 0.3;
+      z-index: -1;
+    }
+
+    #pantalla-inicial {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at center, #ffffff, #f3f3f3);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+    }
+
+    #pantalla-inicial img {
+      width: 150px;
+      cursor: pointer;
+      animation: saltar 1.5s infinite ease-in-out;
+    }
+
+    @keyframes saltar {
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-20px);
+      }
+    }
+
+    #pantalla-inicial h1 {
+      margin-top: 20px;
+      font-size: 24px;
+      color: #444;
+    }
+
+    .contenedor-principal {
+      transform-style: preserve-3d;
+      transition: transform 0.8s;
+      border: 10px solid #ebbc42;
+      border-radius: 20px;
+      position: relative;
+      width: 450px;
+      height: 850px;
+
+    }
+
+    .contenedor-principal:hover {
+      transform: rotateY(180deg);
+    }
+
+    .front,
+    .back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      padding: 20px;
+      box-sizing: border-box;
+      border-radius: 10px;
+    }
+
+    .front {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-around;
+    }
+
+    .back {
+      transform: rotateY(180deg);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+    }
+
+    .logo {
+      width: 450px;
+    }
+
+    #pok {
+      width: 250px;
+      height: auto;
+    }
+
+    #namepokemon {
+      margin-top: 10px;
+      font-size: 30px;
+      text-transform: uppercase;
+    }
+
+    #numero {
+      font-size: 22px;
+      color: #333;
+    }
+
+    .datos {
+      display: flex;
+      justify-content: space-around;
+    }
+
+    .datos2 {
+      text-align: center;
+    }
+
+    .boton-tipo,
+    .boton-debilidad {
+      color: white;
+      border: 2px solid black;
+      padding: 10px 15px;
+      margin: 4px;
+      border-radius: 5px;
+      font-size: 15px;
+    }
+
+    .stat {
+      margin-bottom: 18px;
+    }
+
+    .stat-name {
+      font-weight: bold;
+      margin-bottom: 5px;
+      font-size: 18px;
+    }
+
+    .stat-bar {
+      position: relative;
+      height: 20px;
+      background-color: #eee;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 2px solid black;
+    }
+
+    .stat-fill {
+      height: 100%;
+    }
+
+    .stat-value {
+      position: absolute;
+      right: 10px;
+      top: 0;
+      height: 100%;
+      font-weight: bold;
+      color: black;
+    }
+
+  
+@media (max-width: 900px) {
+  .contenedor-principal {
+    width: 350px;
+    height: 700px;
+  }
+
+  .logo {
+    width: 350px;
+  }
+
+  #pok {
+    width: 200px;
+  }
+
+  #namepokemon {
+    font-size: 24px;
+  }
+
+  #numero {
+    font-size: 18px;
+  }
+
+  .boton-tipo,
+  .boton-debilidad {
+    font-size: 13px;
+    padding: 8px 12px;
+  }
+
+  .stat-name {
+    font-size: 16px;
+  }
+
+  .stat-bar {
+    height: 18px;
+  }
+
+  .stat-value {
+    font-size: 14px;
+  }
+}
+
+
+@media (max-width: 600px) {
+  body {
+    padding: 20px 10px;
+  }
+
+  .contenedor-principal {
+    width: 100%;
+    max-width: 300px;
+    height: 600px;
+    border-width: 6px;
+  }
+
+  .logo {
+    width: 100%;
+  }
+
+  #pok {
+    width: 150px;
+  }
+
+  #namepokemon {
+    font-size: 20px;
+  }
+
+  #numero {
+    font-size: 16px;
+  }
+
+  .datos{
+    font-size: 12px;
+  }
+
+  .datos2{
+    font-size: 12px;
+  }
+
+  .boton-tipo,
+  .boton-debilidad {
+    font-size: 12px;
+    padding: 6px 8px;
+  }
+
+  #stats-container{
+    font-size: 12px;
+  }
+  .stat-name {
+    font-size: 12px;
+  }
+
+  .stat-bar {
+    height: 14px;
+   
+  }
+
+  .stat-value {
+    font-size: 12px;
+  }
+
+  #pantalla-inicial h1 {
+    font-size: 18px;
+    text-align: center;
+    padding: 0 10px;
+  }
+  
+}
