@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -9,37 +10,38 @@
 
 <body>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
     <div id="pantalla-inicial">
         <img src="./pokebola.png" alt="Pokebola" onclick="iniciarApp()" />
         <h1>Haz clic para descubrir un Pokémon</h1>
     </div>
 
-        <div class="contenedor-principal" id="contenedorPrincipal">
+    <div class="contenedor-principal" id="contenedorPrincipal">
+        <div class="front">
+            <img class="logo" src="./logo.png" alt="Logo" />
+            <img src="" id="pok" alt="Imagen del Pokémon" />
+            <h1 id="namepokemon"></h1>
+            <h2 id="numero"></h2>
+        </div>
 
-            <div class="front">
-                <img class="logo" src="./logo.png" alt="Logo" />
-                <img src="" id="pok" alt="Imagen del Pokémon" />
-                <h1 id="namepokemon"></h1>
-                <h2 id="numero"></h2>
+        <div class="back">
+            <div class="datos">
+                <h2>Altura: <span id="altura"></span></h2>
+                <h2>Peso: <span id="peso"></span></h2>
             </div>
-
-            <div class="back">
-                <div class="datos">
-                    <h2>Altura: <span id="altura"></span></h2>
-                    <h2>Peso: <span id="peso"></span></h2>
-                </div>
-                <div class="datos2">
-                    <h2>Tipos:</h2>
-                    <div id="tipo"></div>
-                    <h2>Debilidades:</h2>
-                    <div id="debilidades"></div>
-                </div>
-                <div id="stats-container">
-                    <h2>Estadísticas:</h2>
-                </div>
+            <div class="datos2">
+                <h2>Tipos:</h2>
+                <div id="tipo"></div>
+                <h2>Debilidades:</h2>
+                <div id="debilidades"></div>
+            </div>
+            <div id="stats-container">
+                <h2>Estadísticas:</h2>
             </div>
         </div>
-        <audio id="pokeAudio" src="./sonido.mp3"></audio>
+    </div>
+
+    <audio id="pokeAudio" src="./sonido.mp3"></audio>
 
     <script>
         const coloresPorTipo = {
@@ -52,9 +54,11 @@
         function iniciarApp() {
             document.getElementById("pantalla-inicial").style.display = "none";
             mostrarTarjeta();
-        }
 
-      
+            document.getElementById("contenedorPrincipal").addEventListener("click", function () {
+                this.classList.toggle("volteada");
+            });
+        }
 
         async function mostrarTarjeta() {
             const audio = document.getElementById("pokeAudio");
@@ -102,6 +106,7 @@
             }
 
             const debilidadesContainer = document.getElementById("debilidades");
+            debilidadesContainer.innerHTML = "";
             Array.from(debilidadesSet).forEach(debilidad => {
                 debilidadesContainer.innerHTML += `<button class="boton-debilidad" style="background-color: ${coloresPorTipo[debilidad]};">${debilidad}</button>`;
             });
