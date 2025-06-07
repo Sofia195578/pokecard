@@ -1,4 +1,4 @@
-    body {
+   body {
       font-family: Arial, sans-serif;
       display: flex;
       flex-direction: column;
@@ -72,7 +72,7 @@
 
     }
 
-    .contenedor-principal:hover {
+    .contenedor-principal.volteada {
       transform: rotateY(180deg);
     }
 
@@ -172,111 +172,120 @@
       color: black;
     }
 
-  
-@media (max-width: 900px) {
-  .contenedor-principal {
-    width: 350px;
-    height: 700px;
-  }
 
-  .logo {
-    width: 350px;
-  }
+    @media (max-width: 900px) {
+      .contenedor-principal {
+        width: 350px;
+        height: 750px;
+      }
 
-  #pok {
-    width: 200px;
-  }
+      .logo {
+        width: 350px;
+      }
 
-  #namepokemon {
-    font-size: 24px;
-  }
+      #pok {
+        width: 200px;
+      }
 
-  #numero {
-    font-size: 18px;
-  }
+      #namepokemon {
+        font-size: 24px;
+      }
 
-  .boton-tipo,
-  .boton-debilidad {
-    font-size: 13px;
-    padding: 8px 12px;
-  }
+      #numero {
+        font-size: 18px;
+      }
 
-  .stat-name {
-    font-size: 16px;
-  }
+      .datos {
+        font-size: 15px;
+      }
 
-  .stat-bar {
-    height: 18px;
-  }
-
-  .stat-value {
-    font-size: 14px;
-  }
-}
+      .datos2 {
+        font-size: 15px;
+      }
 
 
-@media (max-width: 600px) {
-  body {
-    padding: 20px 10px;
-  }
+      .boton-tipo,
+      .boton-debilidad {
+        font-size: 13px;
+        padding: 8px 12px;
+      }
 
-  .contenedor-principal {
-    width: 100%;
-    max-width: 300px;
-    height: 600px;
-    border-width: 6px;
-  }
+      .stat-name {
+        font-size: 16px;
+      }
 
-  .logo {
-    width: 100%;
-  }
+      .stat-bar {
+        height: 18px;
+      }
 
-  #pok {
-    width: 150px;
-  }
+      .stat-value {
+        font-size: 14px;
+      }
+    }
 
-  #namepokemon {
-    font-size: 20px;
-  }
 
-  #numero {
-    font-size: 16px;
-  }
+    @media (max-width: 600px) {
+      body {
+        padding: 20px 10px;
+      }
 
-  .datos{
-    font-size: 12px;
-  }
+      .contenedor-principal {
+        width: 100%;
+        max-width: 300px;
+        height: 650px;
+      }
 
-  .datos2{
-    font-size: 12px;
-  }
+      .logo {
+        width: 100%;
+      }
 
-  .boton-tipo,
-  .boton-debilidad {
-    font-size: 12px;
-    padding: 6px 8px;
-  }
+      #pok {
+        width: 150px;
+      }
 
-  #stats-container{
-    font-size: 12px;
-  }
-  .stat-name {
-    font-size: 12px;
-  }
+      #namepokemon {
+        font-size: 20px;
+      }
 
-  .stat-bar {
-    height: 14px;
-   
-  }
+      #numero {
+        font-size: 16px;
+      }
 
-  .stat-value {
-    font-size: 12px;
-  }
+      .datos {
+        font-size: 12px;
+      }
 
-  #pantalla-inicial h1 {
-    font-size: 18px;
-    text-align: center;
-    padding: 0 10px;
-  }
-  
-}
+      .datos2 {
+        font-size: 12px;
+      }
+
+      .boton-tipo,
+      .boton-debilidad {
+        font-size: 12px;
+        padding: 6px 8px;
+      }
+
+      #stats-container {
+        font-size: 12px;
+      }
+
+      .stat-name {
+        font-size: 12px;
+      }
+
+      .stat-bar {
+        height: 14px;
+
+      }
+
+      .stat-value {
+        font-size: 12px;
+      }
+
+      #pantalla-inicial h1 {
+        font-size: 18px;
+        text-align: center;
+        padding: 0 10px;
+      }
+
+    }
